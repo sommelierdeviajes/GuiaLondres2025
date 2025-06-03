@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Londres</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .day-button.active {
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .activity-card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .activity-card:hover {
+            transform: translateY(-5px);
+        }
+        .map-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #10b981; /* Tailwind emerald-500 */
+            color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .map-link:hover {
+            background-color: #059669; /* Tailwind emerald-600 */
+        }
+        .activity-image {
+            width: 100%;
+            height: 180px; /* Fixed height for consistency */
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-6 shadow-lg rounded-b-xl">
+        <div class="container text-center">
+            <h1 class="text-4xl font-bold mb-2">Guía Interactiva de Londres</h1>
+            <p class="text-lg">Tu itinerario de 5 días por la capital británica</p>
+        </div>
+    </header>
+
+    <main class="flex-grow container py-8">
+        <nav class="mb-8 flex flex-wrap justify-center gap-4">
+            <button class="day-button bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-blue-100 transition-colors" data-day="day1">Do 29/6</button>
+            <button class="day-button bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-blue-100 transition-colors" data-day="day2">Lu 30/6</button>
+            <button class="day-button bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-blue-100 transition-colors" data-day="day3">Ma 1/7</button>
+            <button class="day-button bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-blue-100 transition-colors" data-day="day4">Mi 2/7</button>
+            <button class="day-button bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg shadow-sm hover:bg-blue-100 transition-colors" data-day="day5">Ju 3/7</button>
+        </nav>
+
+        <div id="itinerary-content">
+            <!-- Content for each day will be loaded here by JavaScript -->
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white p-4 text-center rounded-t-xl mt-8">
+        <p>© 2025 Guía de Viaje a Londres. ¡Disfruta tu aventura!</p>
+    </footer>
+
+    <script>
+        const itineraryData = {
+            day1: {
+                title: "Día 1: Domingo 29 de junio - Westminster y South Bank",
+                mapLink: "https://www.google.com/maps/dir/Eastlight+Apartments,+18+Dock+St,+London+E1+8QW,+UK/Buckingham+Palace,+London+SW1A+1AA,+UK/Horse+Guards+Parade,+London+SW1A+2AX,+UK/St.+James's+Park,+London+SW1A+2BJ,+UK/Westminster+Abbey,+Dean's+Yard,+London+SW1P+3PA,+UK/Big+Ben,+London+SW1A+0AA,+UK/Westminster+Bridge,+London+SW1A+2JH,+UK/London+Eye,+Riverside+Building,+County+Hall,+London+SE1+7PB,+UK/Westminster+Pier,+Victoria+Embankment,+London+SW1A+2JH,+UK/Leake+Street+Arches,+Leake+St,+London+SE1,+UK",
+                activities: [
+                    { time: "09:30 - 10:00 AM", name: "Salida desde Eastlight Apartments", description: "Comienza tu día con un corto trayecto en transporte público hacia el corazón de Londres.", imageUrl: "https://placehold.co/400x180/ADD8E6/000?text=Alojamiento" },
+                    { time: "10:00 - 11:30 AM", name: "Buckingham Palace - Cambio de Guardia", description: "Sé testigo de la famosa ceremonia del Cambio de Guardia en la residencia oficial de la monarquía británica. Llega temprano para asegurar una buena vista.", links: [{ text: "Palacio de Buckingham (Info)", url: "https://www.rct.uk/visit/buckingham-palace" }, { text: "Cambio de Guardia (Horarios)", url: "https://www.householddivision.org.uk/trooping-the-colour" }], imageUrl: "https://placehold.co/400x180/87CEEB/FFFFFF?text=Cambio+de+Guardia" },
+                    { time: "11:30 AM - 12:00 PM", name: "Parliament Street (The Horse Guards)", description: "Admira a los impresionantes guardias a caballo en su puesto ceremonial. Es un lugar excelente para fotos y está a poca distancia del palacio.", links: [{ text: "The Household Cavalry Museum", url: "https://www.householdcavalrymuseum.org.uk/" }], imageUrl: "https://placehold.co/400x180/6A5ACD/FFFFFF?text=Guardias+a+Caballo" },
+                    { time: "12:00 PM - 01:00 PM", name: "Paseo por St. James's Park", description: "Disfruta de un relajante paseo por uno de los parques reales más hermosos de Londres, con vistas al palacio y al lago, hogar de pelícanos.", links: [{ text: "St. James's Park (Info)", url: "https://www.royalparks.org.uk/parks/st-jamess-park" }], imageUrl: "https://placehold.co/400x180/90EE90/000?text=Parque+Real" },
+                    { time: "01:00 PM - 02:00 PM", name: "Big Ben y Westminster Bridge", description: "Cruza el icónico Puente de Westminster para obtener vistas espectaculares del Big Ben (Elizabeth Tower) y el Parlamento. Un símbolo inconfundible de Londres.", links: [{ text: "Parlamento Británico (Big Ben)", url: "https://www.parliament.uk/about/living-heritage/building/palace/big-ben/" }], imageUrl: "https://placehold.co/400x180/4682B4/FFFFFF?text=Big+Ben" },
+                    { time: "02:00 PM - 02:50 PM", name: "Almuerzo cerca de Westminster Abbey", description: "Una pausa para recargar energías con un almuerzo rápido antes de la próxima actividad cultural." },
+                    { time: "02:50 PM - 03:45 PM", name: "Westminster Abbey - Ceremonia de Evensong (15:00 h / 3 PM)", description: "Asiste a la emotiva ceremonia de Evensong en esta histórica abadía, un momento de reflexión y música coral. Lleguen unos minutos antes para asegurar asiento.", links: [{ text: "Westminster Abbey (Calendario)", url: "https://www.westminster-abbey.org/worship-music/services-calendar" }, { text: "Westminster Abbey (Visitas)", url: "https://www.westminster-abbey.org/visit-us" }], imageUrl: "https://placehold.co/400x180/8B0000/FFFFFF?text=Abadía+Histórica" },
+                    { time: "03:45 PM - 04:15 PM", name: "Visita breve 'imperdible' en Westminster Abbey (Opcional)", description: "Si el tiempo y las regulaciones lo permiten, realiza una visita rápida a los puntos más destacados del interior de la Abadía después de la ceremonia." },
+                    { time: "04:15 PM - 05:45 PM", name: "London Eye", description: "Disfruta de una perspectiva única de Londres desde lo alto de esta famosa noria. Las vistas panorámicas son espectaculares, especialmente al atardecer.", links: [{ text: "London Eye (Reserva)", url: "https://www.londoneye.com/" }], imageUrl: "https://placehold.co/400x180/B0C4DE/000?text=London+Eye" },
+                    { time: "05:45 PM - 07:00 PM", name: "Paseo/Crucero por el Támesis", description: "Relájate con un paseo en barco por el río Támesis, pasando por muchos de los monumentos icónicos de la ciudad y obteniendo una vista diferente de Londres.", links: [{ text: "City Cruises (Reserva)", url: "https://www.cityexperiences.com/london/city-cruises/" }, { text: "Uber Boat by Thames Clippers", url: "https://www.thamesclippers.com/" }], imageUrl: "https://placehold.co/400x180/87CEFA/000?text=Crucero+por+el+Támesis" },
+                    { time: "07:00 PM - 08:00 PM", name: "Leake Street Arches (Graffiti Tunnel)", description: "Explora esta vibrante galería de arte callejero subterránea, donde artistas de graffiti crean constantemente nuevas obras. Un contraste moderno con la historia del día.", links: [{ text: "Leake Street Arches (Info)", url: "https://www.leakestreetarches.london/" }], imageUrl: "https://placehold.co/400x180/6A5ACD/FFFFFF?text=Arte+Urbano" },
+                    { time: "08:00 PM en adelante", name: "Cena y regreso a Eastlight Apartments.", description: "Disfruta de una cena relajada y regresa a tu alojamiento." }
+                ]
+            },
+            day2: {
+                title: "Día 2: Lunes 30 de junio - Soho, Covent Garden y Piccadilly",
+                mapLink: "https://www.google.com/maps/dir/Eastlight+Apartments,+18+Dock+St,+London+E1+8QW,+UK/Trafalgar+Square,+London+WC2N+5DS,+UK/Outernet+London,+Charing+Cross+Rd,+London+WC2H+8LH,+UK/Leicester+Square,+London+WC2H+7LU,+UK/Chinatown,+London+W1D+5QA,+UK/Piccadilly+Circus,+London,+UK/Regent+Street,+London,+UK/Soho,+London,+UK/Poppies+Fish+%26+Chips,+Old+Compton+Street,+London,+UK/Cahoots+Underground,+Kingly+Court,+London,+UK/Covent+Garden,+London,+UK/Seven+Dials+Market,+London+WC2H+9AU,+UK/Neal's+Yard,+London+WC2H,+UK/Mayfair,+London,+UK",
+                activities: [
+                    { time: "09:30 AM - 10:00 AM", name: "Salida desde Eastlight Apartments", description: "Comienza tu día dirigiéndote al animado centro de Londres." },
+                    { time: "10:00 AM - 10:45 AM", name: "Trafalgar Square", description: "Visita esta famosa plaza, hogar de la Columna de Nelson, fuentes y leones. Un punto de encuentro cultural y social.", links: [{ text: "Trafalgar Square (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/landmark/trafalgar-square" }], imageUrl: "https://placehold.co/400x180/FFD700/000?text=Plaza+Emblemática" },
+                    { time: "10:45 AM - 11:30 AM", name: "Outernet (Proyección Colorida)", description: "Sumérgete en una experiencia visual futurista con proyecciones digitales envolventes en este espacio público innovador.", links: [{ text: "Outernet London (Info)", url: "https://www.outernetglobal.com/london/" }], imageUrl: "https://placehold.co/400x180/8A2BE2/FFFFFF?text=Proyección+Digital" },
+                    { time: "11:30 AM - 12:30 PM", name: "Leicester Square, Chinatown y Piccadilly Circus", description: "Pasea por el vibrante Leicester Square, déjate llevar por los aromas y colores de Chinatown, y admira las icónicas pantallas luminosas de Piccadilly Circus.", links: [{ text: "Chinatown London (Info)", url: "https://chinatown.co.uk/" }, { text: "Piccadilly Circus (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/landmark/piccadilly-circus" }], imageUrl: "https://placehold.co/400x180/FF6347/FFFFFF?text=Piccadilly+Circus" },
+                    { time: "12:30 PM - 01:00 PM", name: "Regent Street (Opcional: tiendas)", description: "Disfruta de un paseo por esta elegante calle comercial, conocida por su arquitectura curva y sus tiendas insignia." },
+                    { time: "01:00 PM - 02:00 PM", name: "Almuerzo en Soho o cerca.", description: "Explora las diversas opciones gastronómicas en el animado barrio del Soho." },
+                    { time: "02:00 PM - 03:30 PM", name: "Soho (Exploración, The Poppies y Cahoots Underground)", description: "Sumérgete en el ambiente bohemio y vibrante del Soho. Busca 'The Poppies' (si aún están) y admira la fachada de 'Cahoots Underground', un bar temático único.", links: [{ text: "Soho (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/london-areas/soho" }, { text: "Cahoots (Info)", url: "https://www.cahoots-london.com/" }], imageUrl: "https://placehold.co/400x180/DA70D6/FFFFFF?text=Barrio+Vibrante" },
+                    { time: "03:30 PM - 05:30 PM", name: "Covent Garden y Seven Dials Market", description: "Disfruta de los artistas callejeros, las boutiques únicas y explora el bullicioso Seven Dials Market, un paraíso para los amantes de la comida.", links: [{ text: "Covent Garden (Info)", url: "https://www.coventgarden.london/" }, { text: "Seven Dials Market (Info)", url: "https://www.sevendialsmarket.com/" }], imageUrl: "https://placehold.co/400x180/FF69B4/FFFFFF?text=Mercado+y+Espectáculos" },
+                    { time: "05:30 PM - 06:00 PM", name: "Neal's Yard", description: "Descubre este pintoresco y colorido patio escondido, un oasis de tranquilidad con tiendas y cafés independientes. Perfecto para una foto.", links: [{ text: "Neal's Yard (Info)", url: "https://www.atlasobscura.com/places/neals-yard" }], imageUrl: "https://placehold.co/400x180/9ACD32/000?text=Patio+Colorido" },
+                    { time: "06:00 PM - 07:00 PM", name: "Mayfair (Paseo)", description: "Pasea por el elegante barrio de Mayfair, conocido por sus galerías de arte, tiendas de lujo y arquitectura georgiana. Simplemente para apreciar el ambiente.", links: [{ text: "Mayfair (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/london-areas/mayfair" }], imageUrl: "https://placehold.co/400x180/BDB76B/000?text=Barrio+Elegante" },
+                    { time: "07:00 PM en adelante", name: "Cena y regreso a Eastlight Apartments.", description: "Disfruta de una cena y regresa a tu alojamiento." }
+                ]
+            },
+            day3: {
+                title: "Día 3: Martes 1 de julio - La City de Londres y las Torres",
+                mapLink: "https://www.google.com/maps/dir/Eastlight+Apartments,+18+Dock+St,+London+E1+8QW,+UK/Tower+of+London,+London+EC3N+4AB,+UK/Tower+Bridge,+Tower+Bridge+Rd,+London+SE1+2UP,+UK/St+Dunstan+in+the+East+Church+Garden,+St+Dunstan's+Hill,+London+EC3R+5DD,+UK/Sky+Garden,+1+Sky+Garden+Walk,+London+EC3M+8AF,+UK/Millennium+Bridge,+Thames+Embankment,+London+EC4V+3QH,+UK/St+Paul's+Cathedral,+St.+Paul's+Churchyard,+London+EC4M+8AD,+UK",
+                activities: [
+                    { time: "09:30 AM - 10:00 AM", name: "Salida desde Eastlight Apartments", description: "Comienza tu día con un corto paseo desde tu alojamiento hasta la histórica Torre de Londres." },
+                    { time: "10:00 AM - 12:00 PM", name: "Tower of London (2 horas)", description: "Explora esta fortaleza histórica, hogar de las Joyas de la Corona, los famosos Beefeaters y cuervos. Descubre su fascinante y a menudo macabra historia.", links: [{ text: "Tower of London (Reserva)", url: "https://www.hrp.org.uk/tower-of-london/" }], imageUrl: "https://placehold.co/400x180/8B0000/FFFFFF?text=Torre+de+Londres" },
+                    { time: "12:00 PM - 01:30 PM", name: "Tower Bridge (1.5 horas - con exposición)", description: "Cruza y explora el icónico Tower Bridge. Camina por sus pasarelas elevadas con suelo de cristal y visita las históricas salas de máquinas victorianas.", links: [{ text: "Tower Bridge Exhibition (Reserva)", url: "https://www.towerbridge.org.uk/plan-your-visit/buy-tickets" }], imageUrl: "https://placehold.co/400x180/4682B4/FFFFFF?text=Tower+Bridge" },
+                    { time: "01:30 PM - 02:30 PM", name: "Almuerzo cerca de Tower Bridge o en la City.", description: "Disfruta de un almuerzo en los alrededores de estas históricas atracciones." },
+                    { time: "02:30 PM - 03:00 PM", name: "St. Dunstan in the East (Iglesia Abandonada)", description: "Descubre este pintoresco jardín público construido entre las ruinas de una antigua iglesia. Un oasis de paz y belleza en el corazón de la City.", links: [{ text: "St. Dunstan in the East (Info)", url: "https://www.cityoflondon.gov.uk/things-to-do/green-spaces/city-gardens/st-dunstan-in-the-east" }], imageUrl: "https://placehold.co/400x180/8FBC8F/000?text=Ruinas+de+Iglesia" },
+                    { time: "03:00 PM - 04:30 PM", name: "Sky Garden", description: "Sube a este jardín público en lo alto de un rascacielos para disfrutar de impresionantes vistas panorámicas de Londres. ¡Recuerda reservar tu entrada gratuita con antelación!", links: [{ text: "Sky Garden (Reserva)", url: "https://skygarden.london/booking/" }], imageUrl: "https://placehold.co/400x180/ADD8E6/000?text=Jardín+Panorámico" },
+                    { time: "04:30 PM - 05:00 PM", name: "Millennium Bridge", description: "Pasea por este moderno puente peatonal que conecta la Tate Modern con la Catedral de San Pablo, ofreciendo vistas icónicas del Támesis.", links: [{ text: "Millennium Bridge (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/landmark/millennium-bridge" }], imageUrl: "https://placehold.co/400x180/D3D3D3/000?text=Puente+Moderno" },
+                    { time: "05:00 PM - 06:30 PM", name: "St Paul's Cathedral", description: "Visita la magnífica Catedral de San Pablo, una obra maestra arquitectónica con una cúpula impresionante y una rica historia. Concéntrate en lo 'imperdible' de su interior.", links: [{ text: "St Paul's Cathedral (Reserva)", url: "https://www.stpauls.co.uk/plan-your-visit" }], imageUrl: "https://placehold.co/400x180/F0F8FF/000?text=Catedral+Imponente" },
+                    { time: "06:30 PM en adelante", name: "Cena y regreso a Eastlight Apartments.", description: "Disfruta de una cena relajada y regresa a tu alojamiento." }
+                ]
+            },
+            day4: {
+                title: "Día 4: Miércoles 2 de julio - Museos y el Oeste de Londres",
+                mapLink: "https://www.google.com/maps/dir/Eastlight+Apartments,+18+Dock+St,+London+E1+8QW,+UK/Natural+History+Museum,+Cromwell+Rd,+South+Kensington,+London+SW7+5BD,+UK/Hyde+Park,+London+W2+2UH,+UK/Notting+Hill,+London,+UK",
+                activities: [
+                    { time: "09:30 AM - 10:00 AM", name: "Salida desde Eastlight Apartments", description: "Viaja en transporte público hacia el área de South Kensington, hogar de varios museos." },
+                    { time: "10:00 AM - 12:00 PM", name: "Natural History Museum (2 horas)", description: "Explora las maravillas del mundo natural en este impresionante museo, famoso por su arquitectura y sus esqueletos de dinosaurios, incluyendo el icónico 'Dippy' (o 'Hope').", links: [{ text: "Natural History Museum (Reserva)", url: "https://www.nhm.ac.uk/visit.html" }], imageUrl: "https://placehold.co/400x180/8FBC8F/000?text=Museo+de+Historia+Natural" },
+                    { time: "12:00 PM - 01:00 PM", name: "Almuerzo cerca del museo o en el propio museo.", description: "Disfruta de un almuerzo en las cercanías del museo o en sus cafeterías." },
+                    { time: "01:00 PM - 02:30 PM", name: "Hyde Park", description: "Relájate y pasea por uno de los parques urbanos más grandes de Londres. Puedes visitar el Serpentine o simplemente disfrutar de la naturaleza.", links: [{ text: "Hyde Park (Info)", url: "https://www.royalparks.org.uk/parks/hyde-park" }], imageUrl: "https://placehold.co/400x180/98FB98/000?text=Parque+Urbano" },
+                    { time: "02:30 PM - 03:00 PM", name: "Desplazamiento a Notting Hill.", description: "Un corto trayecto en transporte público te llevará al encantador barrio de Notting Hill." },
+                    { time: "03:00 PM - 06:00 PM", name: "Notting Hill", description: "Explora las coloridas calles victorianas, las boutiques vintage y el ambiente bohemio de este famoso barrio. Aunque el mercado principal es los sábados, el encanto de sus casas y tiendas es constante.", links: [{ text: "Notting Hill (Info)", url: "https://www.visitlondon.com/things-to-do/sightseeing/london-areas/notting-hill" }, { text: "Portobello Road Market (Info)", url: "https://www.portobelloroad.co.uk/" }], imageUrl: "https://placehold.co/400x180/FFB6C1/000?text=Notting+Hill" },
+                    { time: "06:00 PM en adelante", name: "Cena en Notting Hill o regreso a Eastlight Apartments.", description: "Disfruta de una cena en el vibrante Notting Hill o regresa a tu alojamiento." }
+                ]
+            },
+            day5: {
+                title: "Día 5: Jueves 3 de julio - Camden, King's Cross y British Museum",
+                mapLink: "https://www.google.com/maps/dir/Eastlight+Apartments,+18+Dock+St,+London+E1+8QW,+UK/King's+Cross+Station,+Euston+Rd,+London+N1+9AP,+UK/The+British+Museum,+Great+Russell+St,+London+WC1B+3DG,+UK/Camden+Town,+London,+UK/Regent's+Park,+London,+UK",
+                activities: [
+                    { time: "09:30 AM - 10:00 AM", name: "Salida desde Eastlight Apartments", description: "Dirígete a la zona de King's Cross para comenzar tu último día de exploración." },
+                    { time: "10:00 AM - 11:00 AM", name: "King's Cross Station (Decoración Harry Potter)", description: "Visita la icónica Plataforma 9 ¾ y la tienda temática de Harry Potter en la estación King's Cross. Ideal para fotos y souvenirs mágicos.", links: [{ text: "King's Cross Station (Info)", url: "https://kingscross.co.uk/" }, { text: "Platform 9 ¾ (Info)", url: "https://www.wbstudiotour.co.uk/explore/platform-9-3-4/" }], imageUrl: "https://placehold.co/400x180/7B68EE/FFFFFF?text=Estación+Harry+Potter" },
+                    { time: "11:00 AM - 11:30 AM", name: "Desplazamiento al British Museum.", description: "Un corto paseo o trayecto en autobús te llevará a uno de los museos más importantes del mundo." },
+                    { time: "11:30 AM - 01:00 PM", name: "British Museum (1.5 horas)", description: "Explora los tesoros del British Museum, centrándote en lo 'imperdible' como la Piedra Rosetta, las momias egipcias y las esculturas del Partenón.", links: [{ text: "British Museum (Reserva)", url: "https://www.britishmuseum.org/visit" }], imageUrl: "https://placehold.co/400x180/B0E0E6/000?text=Museo+Británico" },
+                    { time: "01:00 PM - 02:00 PM", name: "Almuerzo cerca del British Museum o en el propio museo.", description: "Disfruta de un almuerzo en los alrededores del museo." },
+                    { time: "02:00 PM - 04:30 PM", name: "Camden Town (Markets, Street Food y Canales)", description: "Sumérgete en la cultura alternativa de Camden. Explora sus famosos mercados, prueba la deliciosa comida callejera y pasea junto a los canales.", links: [{ text: "Camden Market (Info)", url: "https://www.camdenmarket.com/" }], imageUrl: "https://placehold.co/400x180/808000/FFFFFF?text=Mercado+Alternativo" },
+                    { time: "04:30 PM - 05:30 PM", name: "Regent's Park (Opcional/Breve)", description: "Si el tiempo y la energía lo permiten, disfruta de un paseo tranquilo por este hermoso parque, conocido por sus jardines de rosas y amplias zonas verdes.", links: [{ text: "Regent's Park (Info)", url: "https://www.royalparks.org.uk/parks/regents-park" }], imageUrl: "https://placehold.co/400x180/9ACD32/000?text=Parque+Real" },
+                    { time: "05:30 PM en adelante", name: "Regreso a Eastlight Apartments y tiempo libre.", description: "Regresa a tu alojamiento para descansar o disfrutar de una última cena en Londres." }
+                ]
+            }
+        };
+
+        const itineraryContent = document.getElementById('itinerary-content');
+        const dayButtons = document.querySelectorAll('.day-button');
+
+        function renderDay(dayKey) {
+            const dayData = itineraryData[dayKey];
+            if (!dayData) {
+                itineraryContent.innerHTML = '<p class="text-center text-red-500">No se encontró información para este día.</p>';
+                return;
+            }
+
+            let html = `
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-blue-700 mb-4">${dayData.title}</h2>
+                    <a href="${dayData.mapLink}" target="_blank" class="map-link">Ver Ruta en Google Maps</a>
+                    <div class="mt-6 space-y-4">
+            `;
+
+            dayData.activities.forEach(activity => {
+                html += `
+                    <div class="activity-card">
+                        <img src="${activity.imageUrl}" alt="${activity.name}" class="activity-image" onerror="this.onerror=null;this.src='https://placehold.co/400x180/CCCCCC/000?text=Imagen+no+disponible';">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">${activity.time}: ${activity.name}</h3>
+                        <p class="text-gray-700 mb-2">${activity.description}</p>
+                `;
+                if (activity.links && activity.links.length > 0) {
+                    html += `<div class="flex flex-wrap gap-2 mt-2">`;
+                    activity.links.forEach(link => {
+                        html += `<a href="${link.url}" target="_blank" class="text-blue-600 hover:underline text-sm">${link.text}</a>`;
+                    });
+                    html += `</div>`;
+                }
+                html += `</div>`; // Close activity-card
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+            itineraryContent.innerHTML = html;
+
+            // Update active button state
+            dayButtons.forEach(button => button.classList.remove('active'));
+            document.querySelector(`.day-button[data-day="${dayKey}"]`).classList.add('active');
+        }
+
+        // Event listeners for day buttons
+        dayButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                renderDay(button.dataset.day);
+            });
+        });
+
+        // Render Day 1 by default on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDay('day1');
+        });
+    </script>
+</body>
+</html>
